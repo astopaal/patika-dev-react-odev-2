@@ -1,6 +1,8 @@
 import React from "react";
 
 function Footer({ todos, setTodos, setFilterType, calculateCompletedCount, filtered, setFiltered }) {
+
+  //filtreleme butonlarından biri onchange olduğunda bunu konrol eden fonksiyon
   const handleFilter = (filterType) => {
     if (filterType === "all") {
       setFilterType(filterType);
@@ -11,8 +13,7 @@ function Footer({ todos, setTodos, setFilterType, calculateCompletedCount, filte
     }
   };
 
-  console.log("tamamlnmış sayı : ", calculateCompletedCount())
-
+  //tamamlanmış todo'ları siler
   const handleClearCompleted = () => {
     setTodos(todos.filter((todo) => !todo.isCompleted));
   };
@@ -45,6 +46,7 @@ function Footer({ todos, setTodos, setFilterType, calculateCompletedCount, filte
         </li>
       </ul>
 
+      {/* eğer 1 veya daha fazla tamamlanmış todo varsa clear completed butonunu render eder */}
       {calculateCompletedCount() > 0 && (
         <button onClick={handleClearCompleted} className="clear-completed">
           Clear completed

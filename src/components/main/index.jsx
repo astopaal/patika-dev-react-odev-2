@@ -20,6 +20,7 @@ function Main({ todos, setTodos, filterType, filtered, setFiltered }) {
     }
   };
 
+  //herhangi bir tamamlama checkboxuna tıklandığında gerçekleşecek olaylar
   const handleComplete = (item) => {
     const updatedTodos = filtered.map((todo) => {
       if (todo === item) {
@@ -30,6 +31,10 @@ function Main({ todos, setTodos, filterType, filtered, setFiltered }) {
     setFiltered(updatedTodos);
   };
 
+
+  //bu hook ile todolarda ya da filterType'da bir değişiklik olursa, todoları tekrardan filtreler.
+  //böylece hem yeni bir todo eklendiğinde render gerçekleşir
+  //hem de filtre tipi değiştiğinde render gerçekleşir
   useEffect(() => {
     if (filterType == "all") {
       setFiltered(todos);
@@ -46,6 +51,8 @@ function Main({ todos, setTodos, filterType, filtered, setFiltered }) {
     }
   }, [filterType, todos]);
 
+
+  //bir todoyu sikme butonuna tıklandığında bunu handle eder
   const handleDelete = (item) => {
     const updatedTodos = filtered.filter((todo) => todo !== item);
     setFiltered(updatedTodos);
@@ -58,9 +65,11 @@ function Main({ todos, setTodos, filterType, filtered, setFiltered }) {
         type="checkbox"
         onChange={changeCompleteness}
       />
-      <label htmlFor="toggle-all">Mark all as complete</label>
-
+      <label htmlFor="toggle-all">Mark all as complete</label> {/*for etiketini htmlFor çeviridm çünkü reactte for yok */}
+      {/*ancak reactte htmlFor class'ı değil id'yi alır. bu yüzden üstteki inputa id geçmemiz gerekiyor*/}
       <ul className="todo-list">
+
+        {/* filtrelenmiş todoları listeler.  */}
         {filtered.map((item, index) => (
           <li key={index} className={item.isCompleted ? "completed" : ""}>
             <input
